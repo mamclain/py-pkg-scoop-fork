@@ -100,10 +100,17 @@ if __name__ == "__main__":
     if args.echoPorts:
         import os
         import sys
-        sys.stdout.write("{0},{1}\n".format(
-            thisBroker.tSockPort,
-            thisBroker.infoSockPort,
-        ))
+
+        if args.backend == 'ZMQ':
+            sys.stdout.write("{0},{1}\n".format(
+                thisBroker.t_sock_port,
+                thisBroker.info_sock_port,
+            ))
+        else:
+            sys.stdout.write("{0},{1}\n".format(
+                thisBroker.tSockPort,
+                thisBroker.infoSockPort,
+            ))
         sys.stdout.flush()
 
         thisBroker.logger.info("Using name {workerName}".format(

@@ -121,10 +121,10 @@ class remoteBroker(object):
             stderr=subprocess.PIPE,
         )
 
-        debug_dump = self.shell.stdout.read()
-        scoop.logger.debug("Debug shell stdout cmd {0}".format(cmd))
-        scoop.logger.debug("Debug shell stdout Log {0}".format(debug_dump))
-        self.shell.stdout.seek(0)
+        # debug_dump = self.shell.stdout.read()
+        # scoop.logger.debug("Debug shell stdout cmd {0}".format(cmd))
+        # scoop.logger.debug("Debug shell stdout Log {0}".format(debug_dump))
+        # self.shell.stdout.seek(0)
 
         # Get remote process group ID
         try:

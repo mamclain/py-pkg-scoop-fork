@@ -121,11 +121,6 @@ class remoteBroker(object):
             stderr=subprocess.PIPE,
         )
 
-        # debug_dump = self.shell.stdout.read()
-        # scoop.logger.debug("Debug shell stdout cmd {0}".format(cmd))
-        # scoop.logger.debug("Debug shell stdout Log {0}".format(debug_dump))
-        # self.shell.stdout.seek(0)
-
         # Get remote process group ID
         try:
             self.remoteProcessGID = int(self.shell.stdout.readline().strip())
@@ -139,6 +134,9 @@ class remoteBroker(object):
             ports = receivedLine.decode().strip().split(",")
             self.brokerPort, self.infoPort = ports
         except ValueError:
+            debug_dump = self.shell.stdout.read()
+            scoop.logger.debug("Debug shell stdout cmd {0}".format(cmd))
+            scoop.logger.debug("Debug shell stdout Log {0}".format(debug_dump))
             # Following line for Python 2.6 compatibility (instead of [as e])
             e = sys.exc_info()[1]
 

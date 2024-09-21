@@ -185,10 +185,21 @@ class ZMQCommunicator(object):
         separate thread."""
         try:
             while True:
+                # # got RuntimeError: Set changed size during iteration with this code so patch it
+                # time.sleep(scoop.TIME_BETWEEN_STATUS_REPORTS)
+                # fids = set(x.id for x in scoop._control.execQueue.movable)
+                # fids.update(set(x.id for x in scoop._control.execQueue.ready))
+                # fids.update(set(x.id for x in scoop._control.execQueue.inprogress))
+                # self.socket.send_multipart([
+                #     STATUS_UPDATE,
+                #     pickle.dumps(fids),
+                # ])
                 time.sleep(scoop.TIME_BETWEEN_STATUS_REPORTS)
                 fids = set(x.id for x in scoop._control.execQueue.movable)
                 fids.update(set(x.id for x in scoop._control.execQueue.ready))
-                fids.update(set(x.id for x in scoop._control.execQueue.inprogress))
+                # Create a copy of the set to avoid RuntimeError
+                inprogress_copy = set(scoop._control.execQueue.inprogress)
+                fids.update(set(x.id for x in inprogress_copy))
                 self.socket.send_multipart([
                     STATUS_UPDATE,
                     pickle.dumps(fids),

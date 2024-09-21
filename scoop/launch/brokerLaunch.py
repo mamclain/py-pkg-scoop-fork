@@ -130,6 +130,7 @@ class remoteBroker(object):
         # Get remote ports
         receivedLine = self.shell.stdout.readline()
         try:
+            scoop.logger.debug("Received line: {0}".format(receivedLine))
             ports = receivedLine.decode().strip().split(",")
             self.brokerPort, self.infoPort = ports
         except ValueError:

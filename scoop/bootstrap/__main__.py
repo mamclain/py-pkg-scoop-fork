@@ -136,7 +136,7 @@ class Bootstrap(object):
         self.parser.add_argument('--backend',
                                  help="Choice of communication backend",
                                  choices=['ZMQ', 'TCP'],
-                                 default='ZMQ')
+                                 default='TCP')
         self.parser.add_argument('executable',
                                  nargs='?',
                                  help='The executable to start with scoop')

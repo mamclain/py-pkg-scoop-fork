@@ -424,7 +424,7 @@ def makeParser():
     parser.add_argument('--backend',
                         help="Choice of communication backend",
                         choices=['ZMQ', 'TCP'],
-                        default='ZMQ')
+                        default='TCP')
     parser.add_argument('executable',
                         nargs='?',
                         help='The executable to start with SCOOP')

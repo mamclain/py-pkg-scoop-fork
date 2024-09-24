@@ -88,7 +88,7 @@ class localBroker(object):
 
 class remoteBroker(object):
     def __init__(self, hostname, pythonExecutable, debug=False, nice=0,
-                 backend='ZMQ', rsh=False):
+                 backend='TCP', rsh=False):
         """Starts a broker on the specified hostname on unoccupied ports"""
         self.backend = backend
         brokerString = ("{pythonExec} -m scoop.broker.__main__ "

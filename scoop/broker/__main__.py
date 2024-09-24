@@ -47,7 +47,7 @@ if __name__ == "__main__":
     parser.add_argument('--backend',
                         help="Choice of communication backend",
                         choices=['ZMQ', 'TCP'],
-                        default='ZMQ')
+                        default='TCP')
     parser.add_argument('--headless',
                         help="Enforce headless (cloud-style) operation",
                         action='store_true')

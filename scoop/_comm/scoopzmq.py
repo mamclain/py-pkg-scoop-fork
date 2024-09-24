@@ -259,8 +259,27 @@ class ZMQCommunicator(object):
         if msg[0] == TASK:
             # Try to connect directly to this worker to send the result
             # afterwards if Future is from a map.
-            if thisFuture.sendResultBack:
-                self.addPeer(thisFuture.id[0])
+            try:
+                if thisFuture.sendResultBack:
+                    self.addPeer(thisFuture.id[0])
+            except Exception as e:
+                scoop.logger.error(
+                    f"problem with This Future, msg was {msg}, object was {thisFuture}, exception was {e}"
+                )
+                # retry the exception?
+                try:
+                    future_id = pickle.loads(msg[1])
+                    scoop.logger.warning(
+                        "Lost track of future {0}. Resending it..."
+                        "".format(scoop._control.futureDict[future_id])
+                    )
+                    self.sendFuture(scoop._control.futureDict[future_id])
+                except KeyError:
+                    # Future was received and processed meanwhile
+                    pass
+
+                return
+
 
         elif msg[0] == STATUS_ANS:
             # TODO: This should not be here but in FuturesQueue.

@@ -18,7 +18,7 @@ from .scoopexceptions import Shutdown
 import scoop
 
 
-if scoop.CONFIGURATION.get('backend', 'TCP') == 'ZMQ':
+if scoop.CONFIGURATION.get('backend', 'ZMQ') == 'ZMQ':
     from .scoopzmq import ZMQCommunicator as Communicator
 else:
     from .scooptcp import TCPCommunicator as Communicator

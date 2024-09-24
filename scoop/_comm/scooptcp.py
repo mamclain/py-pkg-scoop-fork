@@ -23,6 +23,9 @@ import logging
 import asyncore
 import array
 import threading
+
+from zmq import NOBLOCK, ZMQError
+
 try:
     import cPickle as pickle
 except ImportError:
@@ -72,6 +75,9 @@ class DirectSocketServer(asyncore.dispatcher):
             sock, addr = pair
             print('Incoming connection from %s' % repr(addr))
             handler = EchoHandler(sock)
+
+    def getsockname(self):
+        return self.socket.getsockname()
 
 
 class TCPCommunicator(object):

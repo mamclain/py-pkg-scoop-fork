@@ -254,7 +254,12 @@ class ZMQCommunicator(object):
                     error=e,
                 )
             )
+            scoop.logger.error(f" message was {msg}")
             raise ReferenceBroken(e)
+        except pickle.UnpicklingError as e:
+            scoop.logger.error(f"problem with This Future, object was {msg}, exception was {e}, will try to ignore")
+            return
+
 
         if msg[0] == TASK:
             # Try to connect directly to this worker to send the result

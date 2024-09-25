@@ -260,6 +260,9 @@ class ZMQCommunicator(object):
         except pickle.UnpicklingError as e:
             scoop.logger.error(f"problem with This Future, object was {msg}, exception was {e}, will try to ignore")
             return
+        except Exception as e:
+            scoop.logger.error(f"problem with This Future, object was {msg}, exception was {e}, will try to ignore")
+            return
 
 
         if msg[0] == TASK:

@@ -50,6 +50,7 @@ STATUS_UPDATE = b"SU"
 STATUS_HERE = b"H"
 STATUS_GIVEN = b"G"
 STATUS_NONE = b"N"
+WORKERDOWN = b"WD"
 
 
 LINGER_TIME = 1000
@@ -282,6 +283,12 @@ class ZMQCommunicator(object):
                 except KeyError:
                     # Future was received and processed meanwhile
                     pass
+                except Exception as e:
+                    scoop.logger.error(
+                        f"problem with Future, msg was {msg}, exception was {e}, will try to ignore"
+                    )
+                    # try to ignore the exception
+                    return
 
                 return
 
